@@ -30,6 +30,3 @@ yarn-debug.log*
 yarn-error.log*
 frontend/build/**
 yarn-lock.json
-frontend/package-lock.json
-backend/package-lock.json
-frontend/yarn-lock.json
