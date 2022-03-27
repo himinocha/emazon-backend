@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const productRouter = require("./routers/productRouter")
+const userRouter = require("./routers/userRouter")
 
 let port = process.env.PORT || 8888;
 
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 app.get("/", (req,res) => res.send("Hello Word"));
 app.get("/api", (req,res) => res.send("Hello API"));
 app.use(productRouter);
+app.use(userRouter);
 
 app.listen(port, () => {
     console.log(`BE Server running on port ${port}!`)
