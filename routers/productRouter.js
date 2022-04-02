@@ -42,6 +42,30 @@ productRouter.get("/api/products/:productId", async (req, res) => {
   }
 });
 
+productRouter.get("/api/products/email/:email", async (req, res) => {
+  try {
+    let product = await Product.findOne({
+      userEmail: req.params.email,
+    });
+    if (product) {
+      res.status(200).json({
+        status: 200,
+        data: product,
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        message: "No product found",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      status: 400,
+      message: err.message,
+    });
+  }
+});
+
 //filter function
 
 //price filter(bad grammar)
