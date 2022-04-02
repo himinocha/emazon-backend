@@ -42,10 +42,10 @@ productRouter.get("/api/products/:productId", async (req, res) => {
   }
 });
 
-productRouter.get("/api/products/email/:email", async (req, res) => {
+productRouter.post("/api/products/email", async (req, res) => {
   try {
     let product = await Product.find({
-      userEmail: email
+      userEmail: req.body.email
     });
     if (product) {
       res.status(200).json({
