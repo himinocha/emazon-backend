@@ -66,6 +66,25 @@ productRouter.post("/api/products/email", async (req, res) => {
   }
 });
 
+productRouter.post("/api/products/upload", async (req,res) => {
+  try {
+      await Product.create({
+        name: req.body.name,
+        category: req.body.category,
+        image: req.body.image,
+        price: req.body.price,
+        brand: req.body.brand,
+        rating: req.body.rating,
+        numReviews: req.body.numReviews,
+        countInStock: req.body.countInStock,
+        userEmail: req.body.userEmail,
+      })
+      res.json({ status: 'ok' })
+  } catch (err) {
+      res.json({ status: 'error', error: 'error uploading the Product'})
+  }
+});
+
 //filter function
 
 //price filter(bad grammar)
