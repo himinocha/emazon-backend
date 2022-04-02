@@ -45,75 +45,75 @@ productRouter.get("/api/products/:productId", async (req, res) => {
 //filter function
 
 //price filter(bad grammar)
-productRouter.get('/api/products/:price1/:price2',authenticate, async (req,res) => {
-  try{
-  price1=parseFloat(req.params.price1);
-  price2=parseFloat(req.params.price2);
-  price=parseFloat(req.params.price)
-  if(price>price1,price<price2){
-    res.status(200).json({
-      status: 200,
-      data: product,
-    });
-  }}
-  catch (err) {
-    res.status(400).json({
-      status: 400,
-      message: err.message,
-    });
-  }
-});
+// productRouter.get('/api/products/:price1/:price2',authenticate, async (req,res) => {
+//   try{
+//   price1=parseFloat(req.params.price1);
+//   price2=parseFloat(req.params.price2);
+//   price=parseFloat(req.params.price)
+//   if(price>price1,price<price2){
+//     res.status(200).json({
+//       status: 200,
+//       data: product,
+//     });
+//   }}
+//   catch (err) {
+//     res.status(400).json({
+//       status: 400,
+//       message: err.message,
+//     });
+//   }
+// });
 
-//pagination:jumping to pages and deciding how many items one page will contain
-productRouter.get('/api/products',authenticate, async (req,res) => {
-  const match = {}
+// //pagination:jumping to pages and deciding how many items one page will contain
+// productRouter.get('/api/products',authenticate, async (req,res) => {
+//   const match = {}
 
-  if(req.query.published){
-      match.published = req.query.published === 'true'
-  }
-  try {
-      await req.user.populate({
-          path:'/api/products',
-          match,
-          options:{
-              limit: parseInt(req.query.limit),
-              skip: parseInt(req.query.skip)
-          }
-      }).execPopulate()
-      res.send(req.user.posts)
-  } catch (error) {
-      res.status(500).send()
-  }
-})
+//   if(req.query.published){
+//       match.published = req.query.published === 'true'
+//   }
+//   try {
+//       await req.user.populate({
+//           path:'/api/products',
+//           match,
+//           options:{
+//               limit: parseInt(req.query.limit),
+//               skip: parseInt(req.query.skip)
+//           }
+//       }).execPopulate()
+//       res.send(req.user.posts)
+//   } catch (error) {
+//       res.status(500).send()
+//   }
+// })
 
-//sort function
-productRouter.get('/api/products',authenticate, async (req,res) => {
-  const match = {}
-  const sort  = {}
+// //sort function
+// productRouter.get('/api/products',authenticate, async (req,res) => {
+//   const match = {}
+//   const sort  = {}
 
-  if(req.query.published){
-      match.published = req.query.published === 'true'
-  }
+//   if(req.query.published){
+//       match.published = req.query.published === 'true'
+//   }
 
-  if(req.query.sortBy && req.query.OrderBy){
-      sort[req.query.sortBy]   = req.query.OrderBy === 'desc' ? -1 : 1
-  }
+//   if(req.query.sortBy && req.query.OrderBy){
+//       sort[req.query.sortBy]   = req.query.OrderBy === 'desc' ? -1 : 1
+//   }
   
-  try {
-      await req.user.populate({
-          path:'/api/products',
-          match,
-          options:{
-              limit: parseInt(req.query.limit),
-              skip: parseInt(req.query.skip),
-              sort
-          }
-      }).execPopulate()
-      res.send(req.user.posts)
-  } catch (error) {
-      res.status(500).send()
-  }
-})
+//   try {
+//       await req.user.populate({
+//           path:'/api/products',
+//           match,
+//           options:{
+//               limit: parseInt(req.query.limit),
+//               skip: parseInt(req.query.skip),
+//               sort
+//           }
+//       }).execPopulate()
+//       res.send(req.user.posts)
+//   } catch (error) {
+//       res.status(500).send()
+//   }
+// })
 module.exports = productRouter;
 
 // router.post("/", async (req, res) => {
