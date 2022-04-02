@@ -68,25 +68,27 @@ productRouter.post("/api/products/email", async (req, res) => {
 
 //filter function
 
-//price filter(bad grammar)
-// productRouter.get('/api/products/:price1/:price2',authenticate, async (req,res) => {
-//   try{
-//   price1=parseFloat(req.params.price1);
-//   price2=parseFloat(req.params.price2);
-//   price=parseFloat(req.params.price)
-//   if(price>price1,price<price2){
-//     res.status(200).json({
-//       status: 200,
-//       data: product,
-//     });
-//   }}
-//   catch (err) {
-//     res.status(400).json({
-//       status: 400,
-//       message: err.message,
-//     });
-//   }
-// });
+//filter 1: price(bad grammar)
+//a price filter function that will receive a higher bound and a lower bound 
+//and check if the product’s price is between that range
+productRouter.get('/api/products/:price1/:price2',authenticate, async (req,res) => {
+  try{
+  price1=parseFloat(req.params.price1);
+  price2=parseFloat(req.params.price2);
+  price=parseFloat(req.params.price)
+  if(price>price1,price<price2){
+    res.status(200).json({
+      status: 200,
+      data: product,
+    });
+  }}
+  catch (err) {
+    res.status(400).json({
+      status: 400,
+      message: err.message,
+    });
+  }
+});
 
 // //pagination:jumping to pages and deciding how many items one page will contain
 // productRouter.get('/api/products',authenticate, async (req,res) => {
