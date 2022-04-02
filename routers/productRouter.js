@@ -44,8 +44,8 @@ productRouter.get("/api/products/:productId", async (req, res) => {
 
 productRouter.get("/api/products/email/:email", async (req, res) => {
   try {
-    let product = await Product.findOne({
-      userEmail: req.params.email,
+    let product = await Product.find({
+      userEmail: "test@emory.edu",
     });
     if (product) {
       res.status(200).json({

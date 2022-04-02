@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const productRouter = require("./routers/productRouter")
 const userRouter = require("./routers/userRouter")
 
-let port = process.env.PORT || 8888;
+let port = process.env.PORT || 1010;
 
 // connect to mongoDB
 mongoID = "emazon-auth";
