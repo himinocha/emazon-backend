@@ -33,9 +33,6 @@ userRouter.post('/api/login', async (req, res) => {
 		req.body.password,
 		user.password
 	)
-    // console.log(isPasswordValid)
-    // console.log(req.body.password)
-    // console.log(user.password)
 
 	if (isPasswordValid) {
 		const token = jwt.sign(
@@ -52,6 +49,19 @@ userRouter.post('/api/login', async (req, res) => {
 		return res.json({ status: 'error', user: false })
 	}
 })
+
+userRouter.post("/api/updateUser", async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+		{ email: req.body.email },
+		{ firstName: req.body.firstName, lastName: req.body.lastName },
+		{ new: true }
+	);
+	res.json({ status: 'ok' })
+  } catch (err) {
+    res.json({ status: 'error', error: 'Duplicate email'})
+  }
+});
 
 userRouter.get('/api/quote', async (req, res) => {
 	const token = req.headers['x-access-token']

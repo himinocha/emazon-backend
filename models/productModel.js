@@ -5,7 +5,7 @@ let productsSchema = new Schema(
   {
     name: { type: String, required: true },
     category: { type: String },
-    image: { type: String, required: true },
+    image: { type: String },
     price: { type: Number, required: true },
     brand: { type: String },
     rating: { type: Number },
