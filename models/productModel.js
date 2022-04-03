@@ -12,6 +12,7 @@ let productsSchema = new Schema(
     numReviews: { type: Number },
     countInStock: { type: Number },
     userEmail: { type: String },
+    description: { type: String },
   },
   { timestamps: true }
 );

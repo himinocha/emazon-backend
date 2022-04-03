@@ -78,6 +78,7 @@ productRouter.post("/api/products/upload", async (req,res) => {
         numReviews: req.body.numReviews,
         countInStock: req.body.countInStock,
         userEmail: req.body.userEmail,
+        description: req.body.description,
       })
       res.json({ status: 'ok' })
   } catch (err) {

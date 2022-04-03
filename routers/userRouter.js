@@ -14,6 +14,8 @@ userRouter.post("/api/register", async (req,res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             password: newPassword,
+			phoneNumber: req.body.phoneNumber,
+			description: req.body.description,
         })
         res.json({ status: 'ok' })
     } catch (err) {
@@ -40,6 +42,8 @@ userRouter.post('/api/login', async (req, res) => {
 				firstName: user.firstName,
                 lastName: user.lastName,
 				email: user.email,
+				phoneNumber: user.phoneNumber,
+				description: user.description,
 			},
 			'22secretEmory22'
 		)
@@ -54,7 +58,12 @@ userRouter.post("/api/updateUser", async (req, res) => {
   try {
     await User.findOneAndUpdate(
 		{ email: req.body.email },
-		{ firstName: req.body.firstName, lastName: req.body.lastName },
+		{
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			email: req.body.email,
+
+		},
 		{ new: true }
 	);
 	res.json({ status: 'ok' })
