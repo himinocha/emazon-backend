@@ -43,6 +43,9 @@ userRouter.post('/api/login', async (req, res) => {
 				firstName: user.firstName,
                 lastName: user.lastName,
 				email: user.email,
+				phoneNumber: user.phoneNumber,
+				description: user.description,
+				occupation: user.occupation,
 			},
 			'22secretEmory22'
 		)
