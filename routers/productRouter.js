@@ -66,22 +66,33 @@ productRouter.post("/api/products/email", async (req, res) => {
   }
 });
 
-//filter function
+//filter functions
 
-//filter 1: price(bad grammar)
+//filter 1: price
 //a price filter function that will receive a higher bound and a lower bound 
 //and check if the product’s price is between that range
-productRouter.get('/api/products/:price1/:price2',authenticate, async (req,res) => {
+
+//products?price1=50&price2=100
+productRouter.get('/api/products/price', async (req,res) => {
+  const price1=parseFloat(req.query.price1);
+  const price2=parseFloat(req.query.price2);
   try{
-  price1=parseFloat(req.params.price1);
-  price2=parseFloat(req.params.price2);
-  price=parseFloat(req.params.price)
-  if(price>price1,price<price2){
+  let product = await Product.findall({
+    //find all products with price between the 2 given parameters
+    price: price>=price1&&price<=price2
+  });
+  if (product) {
     res.status(200).json({
       status: 200,
       data: product,
     });
-  }}
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: "No product found",
+    });
+  }
+}
   catch (err) {
     res.status(400).json({
       status: 400,
@@ -90,27 +101,32 @@ productRouter.get('/api/products/:price1/:price2',authenticate, async (req,res) 
   }
 });
 
-// //pagination:jumping to pages and deciding how many items one page will contain
-// productRouter.get('/api/products',authenticate, async (req,res) => {
-//   const match = {}
-
-//   if(req.query.published){
-//       match.published = req.query.published === 'true'
-//   }
-//   try {
-//       await req.user.populate({
-//           path:'/api/products',
-//           match,
-//           options:{
-//               limit: parseInt(req.query.limit),
-//               skip: parseInt(req.query.skip)
-//           }
-//       }).execPopulate()
-//       res.send(req.user.posts)
-//   } catch (error) {
-//       res.status(500).send()
-//   }
-// })
+//filter 2:condition
+//products?condition=Used
+productRouter.get('/api/products/rating', async (req,res) => {
+  try{
+  let product = await Product.find({
+    rating: rating==req.query.condition
+  });
+  if (product) {
+    res.status(200).json({
+      status: 200,
+      data: product,
+    });
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: "No product found",
+    });
+  }
+}
+  catch (err) {
+    res.status(400).json({
+      status: 400,
+      message: err.message,
+    });
+  }
+});
 
 // //sort function
 // productRouter.get('/api/products',authenticate, async (req,res) => {
