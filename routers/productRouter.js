@@ -74,12 +74,12 @@ productRouter.post("/api/products/email", async (req, res) => {
 
 //products?price1=50&price2=100
 productRouter.get('/api/products/price', async (req,res) => {
-  const price1=parseFloat(req.query.price1);
-  const price2=parseFloat(req.query.price2);
+  //const price1=parseFloat(req.query.price1);
+  //const price2=parseFloat(req.query.price2);
   try{
-  let product = await Product.findall({
+  let product = await Product.find({
     //find all products with price between the 2 given parameters
-    price: price>=price1&&price<=price2
+    price : { $lt : parseFloat(req.query.price2)}
   });
   if (product) {
     res.status(200).json({
@@ -101,12 +101,12 @@ productRouter.get('/api/products/price', async (req,res) => {
   }
 });
 
-//filter 2:condition
-//products?condition=Used
-productRouter.get('/api/products/rating', async (req,res) => {
+//filter 2:condition(rating)
+//products?rating=Used
+productRouter.post('/api/products/rating', async (req,res) => {
   try{
   let product = await Product.find({
-    rating: rating==req.query.condition
+    rating: parseFloat(req.query.rating)
   });
   if (product) {
     res.status(200).json({
