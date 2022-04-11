@@ -86,6 +86,32 @@ productRouter.post("/api/products/upload", async (req,res) => {
   }
 });
 
+// search by name
+productRouter.post("/api/products/searchName", async (req, res) => {
+  try {
+    let search = new RegExp(req.body.name);
+    let product = search? await Product.find({
+      name: { $regex: search, $options: 'i' }
+    }): [];
+    if (product) {
+      res.status(200).json({
+        status: 200,
+        data: product,
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        message: "No product found",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      status: 400,
+      message: err.message,
+    });
+  }
+});
+
 //filter function
 
 //price filter(bad grammar)
