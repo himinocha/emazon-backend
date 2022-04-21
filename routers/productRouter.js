@@ -140,6 +140,7 @@ productRouter.post('/api/products/price', async (req,res) => {
 
 // filter product by rating
 productRouter.post('/api/products/rating', async (req,res) => {
+  console.log(req.body.rating)
   try{
   let products = await Product.find({
     rating: req.body.rating
@@ -164,28 +165,30 @@ productRouter.post('/api/products/rating', async (req,res) => {
   }
 });
 
-// productRouter.delete("api/products/:productId", async (req, res) => {
-//   console.log(req.params.productId)
-//   try {
-//     let product = await Product.findByIdAndDelete(req.params.productId);
-//     if (product) {
-//       res.status(200).json({
-//         status: 200,
-//         message: "Product deleted successfully",
-//       });
-//     } else {
-//       res.status(400).json({
-//         status: 400,
-//         message: "No product found",
-//       });
-//     }
-//   } catch (err) {
-//     res.status(400).json({
-//       status: 400,
-//       message: err.message,
-//     });
-//   }
-// });
+productRouter.post("/api/products/delete", async (req, res) => {
+  try {
+    // console.log(req.body._id)
+    let product = await Product.deleteOne({
+      _id: req.body._id
+    });
+    if (product) {
+      res.status(200).json({
+        status: 200,
+        message: "Product deleted successfully",
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        message: "No product found",
+      });
+    }
+  } catch (err) {
+    res.status(400).json({
+      status: 400,
+      message: err.message,
+    });
+  }
+});
 
 module.exports = productRouter;
 
